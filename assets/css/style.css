@@ -1,0 +1,373 @@
+* {
+  box-sizing: border-box;
+  scrollbar-width: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+html,
+body,
+.main,
+.flex-container {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.page-content {
+  flex: 1 1 680px;
+  background: linear-gradient(180deg, #ffffff 0%, #f2f5fa 100%);
+}
+
+.hero-image {
+  flex: 1 1.75 1620px;
+  background: url(../img/image_summer.png) no-repeat center;
+  background-size: cover;
+}
+
+/* Fonts */
+
+.header,
+.paragraph,
+form {
+  font-family: Arial;
+}
+
+.header,
+.paragraph,
+.email-input,
+.checkbox-text {
+  font-size: 16px;
+}
+
+.paragraph,
+.checkbox-text {
+  line-height: 28px;
+}
+
+/* ===Header=== */
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  max-width: 480px;
+  width: 71%;
+  margin: 100px auto 164px auto;
+
+  line-height: 26px;
+  color: #6a707b;
+}
+
+.nav {
+  flex: 0 1 249px;
+  margin-top: 6px;
+}
+
+.inner-nav {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.nav-item {
+  display: inline-flex;
+}
+
+.nav-item > a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.nav-item > a:hover,
+.checkbox-text > a:hover {
+  text-decoration-line: underline;
+  color: #4066a5;
+}
+
+.nav-item > a:active,
+.checkbox-text > a:active {
+  text-decoration-line: underline;
+  color: #233759;
+}
+
+.logo-container {
+  margin-right: 15px;
+}
+
+.company-logo {
+  max-width: 118px;
+  width: 100%;
+}
+
+.company-logo-mobile {
+  display: none;
+}
+
+/* ===Subscripion container=== */
+
+.heading,
+.paragraph,
+.checkbox-wrap {
+  width: 59%;
+  margin: 0 auto;
+}
+
+.subscripion-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.heading {
+  font-family: Georgia;
+  font-weight: normal;
+  font-size: 32px;
+  line-height: 44px;
+  color: #131821;
+  margin-bottom: 15px;
+}
+
+.paragraph {
+  color: #6a707b;
+  margin-bottom: 50px;
+}
+
+.email-input {
+  position: relative;
+  z-index: 1;
+  width: 97.5%;
+  height: 70px;
+
+  margin-bottom: 53px;
+  margin-left: 15%;
+  padding-left: 40px;
+  border: 1px solid #e3e3e4;
+  border-left: 4px solid #4066a5;
+
+  background: #ffffff;
+  color: #6a707b;
+  line-height: 24px;
+}
+
+.email-input:hover {
+  box-shadow: 0px 30px 40px rgba(19, 24, 33, 0.06);
+}
+
+.email-input:focus {
+  box-shadow: 0px 30px 40px rgba(19, 24, 33, 0.06);
+  border-color: #4066a5;
+  color: #131821;
+  outline: none;
+}
+
+.form-arrow {
+  position: relative;
+  left: 103%;
+  top: -95px;
+  z-index: 1;
+  width: 24px;
+  height: 14px;
+  margin: 0;
+  display: inline-block;
+  cursor: pointer;
+}
+
+label > input[type="checkbox"] {
+  display: none;
+}
+
+label > input[type="checkbox"] + *::before {
+  content: "";
+  width: 26px;
+  height: 26px;
+  display: inline-block;
+  margin-right: 15px;
+  border-radius: 3px;
+
+  background: #ffffff;
+  border: 1px solid #e3e3e4;
+}
+
+label > input[type="checkbox"]:checked + *::before {
+  content: url(../img/ic_checkmark.png);
+  width: 20px;
+  padding-left: 6px;
+  background: #4066a5;
+}
+
+.checkbox-wrap::after {
+  content: " ";
+  display: block;
+  border-bottom: 1px solid #e3e3e4;
+  margin: 50px 0;
+}
+
+.checkbox-text {
+  display: flex;
+  align-self: center;
+  margin-bottom: 50px;
+
+  color: #6a707b;
+  cursor: pointer;
+}
+
+.checkbox-text > a {
+  color: #131821;
+  margin-left: 5px;
+}
+
+/* ===Footer=== */
+
+.social-icon-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.social-icon {
+  width: 46px;
+  height: 46px;
+  cursor: pointer;
+}
+
+.social-icon > a {
+  text-decoration: none;
+}
+
+.instragram-wrap,
+.twitter-wrap,
+.youtube-wrap {
+  margin-left: 20px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1200px) {
+  .hero-image {
+    background-position: unset;
+  }
+
+  .company-logo {
+    display: none;
+  }
+
+  .company-logo-mobile {
+    display: block;
+  }
+
+  .heading,
+  .paragraph,
+  .checkbox-wrap {
+    width: 70%;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .page-content {
+    background: url(../img/image_summer_mobile.png) no-repeat;
+    background-size: cover;
+  }
+
+  .hero-image {
+    display: none;
+  }
+
+  /* ===Header=== */
+
+  .header {
+    width: 100%;
+    max-width: unset;
+    margin: 0;
+    padding: 10px 20px 16px 20px;
+
+    background: #ffffff;
+    font-size: 14px;
+    line-height: 24px;
+  }
+
+  .company-logo {
+    display: none;
+  }
+
+  .company-logo-mobile {
+    display: block;
+  }
+
+  /* ===Subscripion container=== */
+
+  .mobile-page-container {
+    width: 89%;
+    height: 371px;
+    margin: 188px auto 0 auto;
+    padding: 30px 20px;
+    background: linear-gradient(180deg, #ffffff 0%, #f2f5fa 100%);
+  }
+
+  .heading,
+  .paragraph,
+  form,
+  .checkbox-wrap,
+  .email-input {
+    width: unset;
+    margin: 0;
+  }
+
+  .checkbox-wrap,
+  .email-input {
+    width: 100%;
+  }
+
+  .heading {
+    margin-bottom: 10px;
+    font-size: 24px;
+    line-height: 34px;
+  }
+
+  .paragraph {
+    margin-bottom: 20px;
+    font-size: 14px;
+    line-height: 26px;
+  }
+
+  .email-input {
+    height: 60px;
+    margin-bottom: 5px;
+    padding-left: 15px;
+  }
+
+  input[type="checkbox"] {
+    margin: 0;
+  }
+
+  .form-arrow {
+    top: -44px;
+    left: 88%;
+  }
+
+  .checkbox-wrap,
+  .checkbox-text {
+    margin: 0;
+  }
+
+  .checkbox-wrap::after {
+    margin: 20px 0;
+  }
+
+  /* ===Footer=== */
+
+  .instragram-wrap,
+  .twitter-wrap,
+  .youtube-wrap {
+    margin-left: 10px;
+  }
+}

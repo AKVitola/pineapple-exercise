@@ -1,0 +1,144 @@
+@font-face {
+  font-family: "social-icon-font";
+  src: url("../fonts/social-icon-font.eot?v8n3m4");
+  src: url("../fonts/social-icon-font.eot?v8n3m4#iefix")
+      format("embedded-opentype"),
+    url("../fonts/social-icon-font.ttf?v8n3m4") format("truetype"),
+    url("../fonts/social-icon-font.woff?v8n3m4") format("woff"),
+    url("../fonts/social-icon-font.svg?v8n3m4#icomoon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+.icon-social {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: "social-icon-font" !important;
+  /* speak: never; */
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  font-size: 46px;
+  color: #131821;
+  opacity: 0.3;
+  border: 2px solid #e3e3e4;
+  border-radius: 50%;
+}
+
+.icon-social:hover,
+.icon-social:active {
+  color: #fff;
+  opacity: unset;
+  border-color: #f2f5fa;
+}
+
+.icon-Facebook:before {
+  content: "\e900";
+}
+
+.icon-Facebook:hover:before {
+  background: #4267b2;
+}
+
+.icon-Facebook:active:before {
+  background: #2f4a80;
+}
+
+.icon-Instagram:before {
+  content: "\e901";
+}
+
+.icon-Instagram:hover:before {
+  background: #c13584;
+}
+
+.icon-Instagram:active:before {
+  background: #8f2762;
+}
+
+.icon-Twitter:before {
+  content: "\e902";
+}
+
+.icon-Twitter:hover:before {
+  background: #1da1f2;
+}
+
+.icon-Twitter:active:before {
+  background: #177fbf;
+}
+
+.icon-Youtube:before {
+  content: "\e903";
+}
+
+.icon-Youtube:hover:before {
+  background: #ff0000;
+}
+
+.icon-Youtube:active:before {
+  background: #cc0000;
+}
+
+.icon-Facebook:hover:before,
+.icon-Facebook:active:before,
+.icon-Instagram:hover:before,
+.icon-Instagram:active:before,
+.icon-Twitter:hover:before,
+.icon-Twitter:active:before,
+.icon-Youtube:hover:before,
+.icon-Youtube:active:before {
+  border-radius: 50%;
+  box-shadow: 0px 20px 40px rgba(19, 24, 33, 0.3);
+}
+
+@font-face {
+  font-family: "arrow-icon-font";
+  src: url("../fonts/arrow-icon-font.eot?ss8w4");
+  src: url("../fonts/arrow-icon-font.eot?ss8w4#iefix")
+      format("embedded-opentype"),
+    url("../fonts/arrow-icon-font.ttf?ss8w4") format("truetype"),
+    url("../fonts/arrow-icon-font.woff?ss8w4") format("woff"),
+    url("../fonts/arrow-icon-font.svg?ss8w4#icomoon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+.icon {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: "arrow-icon-font" !important;
+  /* speak: never; */
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  font-size: 14px;
+  color: #131821;
+  opacity: 0.3;
+}
+
+.icon:active {
+  opacity: unset;
+}
+
+.icon-ic_arrow:before {
+  content: "\e900";
+}
+
+.icon-ic_arrow:active:before {
+  color: #4066a5;
+}
