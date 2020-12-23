@@ -39,17 +39,20 @@ body,
 .paragraph,
 form {
   font-family: Arial;
+  color: #6a707b;
 }
 
 .header,
 .paragraph,
 .email-input,
-.checkbox-text {
+.checkbox-text,
+.error-container {
   font-size: 16px;
 }
 
 .paragraph,
-.checkbox-text {
+.checkbox-text,
+.error-container {
   line-height: 28px;
 }
 
@@ -66,7 +69,6 @@ form {
   margin: 100px auto 164px auto;
 
   line-height: 26px;
-  color: #6a707b;
 }
 
 .nav {
@@ -121,7 +123,8 @@ form {
 
 .heading,
 .paragraph,
-.checkbox-wrap {
+.checkbox-wrap,
+.error-container {
   width: 59%;
   margin: 0 auto;
 }
@@ -141,7 +144,6 @@ form {
 }
 
 .paragraph {
-  color: #6a707b;
   margin-bottom: 50px;
 }
 
@@ -158,7 +160,6 @@ form {
   border-left: 4px solid #4066a5;
 
   background: #ffffff;
-  color: #6a707b;
   line-height: 24px;
 }
 
@@ -173,16 +174,27 @@ form {
   outline: none;
 }
 
-.form-arrow {
+.form-arrow-btn {
   position: relative;
   left: 103%;
   top: -95px;
   z-index: 1;
-  width: 24px;
-  height: 14px;
+  padding: 0;
+  border: unset;
+  cursor: default;
+  outline: none;
+  background-color: unset;
+}
+
+.error-container {
+  display: none;
+  margin-bottom: 50px;
+  margin-top: -53px;
+  color: #e50000b9;
+}
+
+.error {
   margin: 0;
-  display: inline-block;
-  cursor: pointer;
 }
 
 label > input[type="checkbox"] {
@@ -219,8 +231,6 @@ label > input[type="checkbox"]:checked + *::before {
   display: flex;
   align-self: center;
   margin-bottom: 50px;
-
-  color: #6a707b;
   cursor: pointer;
 }
 
@@ -267,7 +277,8 @@ label > input[type="checkbox"]:checked + *::before {
 
   .heading,
   .paragraph,
-  .checkbox-wrap {
+  .checkbox-wrap,
+  .error-container {
     width: 70%;
   }
 }
@@ -307,7 +318,7 @@ label > input[type="checkbox"]:checked + *::before {
 
   .mobile-page-container {
     width: 89%;
-    height: 371px;
+    height: auto;
     margin: 188px auto 0 auto;
     padding: 30px 20px;
     background: linear-gradient(180deg, #ffffff 0%, #f2f5fa 100%);
@@ -317,7 +328,8 @@ label > input[type="checkbox"]:checked + *::before {
   .paragraph,
   form,
   .checkbox-wrap,
-  .email-input {
+  .email-input,
+  .error-container {
     width: unset;
     margin: 0;
   }
@@ -333,7 +345,8 @@ label > input[type="checkbox"]:checked + *::before {
     line-height: 34px;
   }
 
-  .paragraph {
+  .paragraph,
+  .error-container {
     margin-bottom: 20px;
     font-size: 14px;
     line-height: 26px;
@@ -349,7 +362,7 @@ label > input[type="checkbox"]:checked + *::before {
     margin: 0;
   }
 
-  .form-arrow {
+  .form-arrow-btn {
     top: -44px;
     left: 88%;
   }

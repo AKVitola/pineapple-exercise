@@ -131,14 +131,11 @@
   opacity: 0.3;
 }
 
-.icon:active {
-  opacity: unset;
-}
-
 .icon-ic_arrow:before {
   content: "\e900";
 }
 
-.icon-ic_arrow:active:before {
+.active-arrow {
   color: #4066a5;
+  opacity: unset;
 }

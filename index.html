@@ -32,15 +32,16 @@
           <section class="subscripion-container mobile">
             <h1 class="heading">Subscribe to newsletter</h1>
             <p class="paragraph">Subscribe to our newsletter and get 10% discount on pineapple glasses.</p>
-            <form action="#">
+            <form novalidate action="#" onsubmit="onsubmitValidation()">
               <label for="email"></label>
-              <input class="email-input" type="email" id="email" name="email" placeholder="Type your email address here…">
-              <p class="form-arrow">
-                <span class="icon icon-ic_arrow"></span>
-              </p>
+              <input class="email-input" id="js-email-input" type="email" id="email" name="email" placeholder="Type your email address here…" required oninput="oninputValidation()" >
+              <button id="button" class="form-arrow-btn" type="submit" disabled>
+                <span class="icon icon-ic_arrow" id="js-arrow-icon"></span>
+              </button>
+              <div class="error-container" id="js-error-container"></div>
               <div class="checkbox-wrap">
                 <label>
-                  <input type="checkbox" name="terms-of-service" value="agree"/>
+                  <input id="js-checkbox" type="checkbox" name="terms-of-service" value="agree" required onchange="oncheckValidation()"/>
                   <span class="checkbox-text">
                     I agree to <a href="#"> terms of service</a>
                   </span>
