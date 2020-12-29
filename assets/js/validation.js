@@ -1,7 +1,7 @@
-const input = document.getElementById('js-email-input');
 const errorContainer = document.getElementById('js-error-container');
-const arrowIcon = document.getElementById("js-arrow-icon");
-let errorMessage = [];
+let errorMessage     = [];
+const arrowIcon      = document.getElementById("js-arrow-icon");
+const input          = document.getElementById('js-email-input');
 
 window.onload = function() {
   if(button.style.cursor !== "auto") {
@@ -122,4 +122,41 @@ function addArrowClass() {
 function removeArrowClass() {
   arrowIcon.classList.remove("active-arrow");
 }
+
+
+
+
+
+
+
+const sortEmail = document.getElementById("sort-by-email");
+const sortDate  = document.getElementById("sort-by-date");
+
+$(document).ready(function() {
+  console.log("Esmu dok'a!");
+
+  $('form').submit(function(event) {
+    console.log("Esmu form'a!");
+    var formData = {
+        'email'  : $('input[name=email]').val()
+    };
+
+    $.ajax({
+        type     : 'POST',
+        url      :'assets/php/functionality.php',
+        data     : formData,
+        dataType : 'json',
+        encode   : true
+    })
+
+    .done(function(data) {
+        // log data to the console so we can see
+        console.log("Kafija");
+        console.log(data);
+        // here we will handle errors and validation messages
+    });
+
+      event.preventDefault();
+  });
+});
 
