@@ -25,40 +25,62 @@
     die("Connection failed: " . $conn->connect_error);
   }
 
-  $sql        = "SELECT email, date, id FROM subscriptions ORDER BY date DESC";
-  $result     = $conn->query($sql);
-  $columns    = array('email','date', 'id');
+  $columns    = array('date', 'email');
   $column     = isset($_GET['column']) && in_array($_GET['column'], $columns) ? $_GET['column'] : $columns[0];
-  $sort_order = isset($_GET['order']) && strtolower($_GET['order']) == 'desc' ? 'DESC' : 'ASC';
+  $sort_order = isset($_GET['order']) && strtolower($_GET['order']) == 'asc' ? 'ASC' : 'DESC';
+  $whereSql   = "";
+  $selectedProvider = isset($_GET['provider']) ? $_GET['provider'] : null;
 
-  if ($result = $conn->query('SELECT * FROM subscriptions ORDER BY ' .  $column . ' ' . $sort_order)) {
+  if($selectedProvider) {
+    $whereSql = 'WHERE provider= "' . $selectedProvider . '"';
+  }
+
+  if ($result = $conn->query('SELECT * FROM subscriptions ' . $whereSql . ' ORDER BY ' . $column . ' ' . $sort_order)) {
     $up_or_down = str_replace(array('ASC','DESC'), array('up','down'), $sort_order);
     $asc_or_desc = $sort_order == 'ASC' ? 'desc' : 'asc';
   }
 
+function generateDataUrl($column, $sort_order, $provider) {
+  $url = "subscribers.php?column=" . $column . "&order=" . $sort_order;
+
+  if($provider) {
+    $url = $url . "&provider=" . $provider;
+  }
+
+  return $url;
+}
+
   $providerQuery   = 'SELECT DISTINCT provider FROM subscriptions';
   $providerResults = $conn->query($providerQuery);
   $providerResults = $providerResults->fetch_all();
-
-  echo "<div>";
-  foreach ($providerResults as $providerArray) {
-    foreach($providerArray as $provider) {
-      echo "<button>$provider</button>";
-    }
-  }
-  echo "</div>";
 ?>
+
+  <div>
+    <?php
+      foreach ($providerResults as $providerArray) {
+        foreach($providerArray as $provider) {
+    ?>
+        <button>
+          <a href="<?php echo generateDataUrl($column, $sort_order, $provider); ?>">
+              <?php echo $provider; ?>
+          </a>
+        </button>
+    <?php
+        }
+      }
+    ?>
+  </div>
 
   <table>
     <tr>
       <th>
-        <a href="subscribers.php?column=email&order=<?php echo $asc_or_desc ?>">
+        <a href="<?php echo generateDataUrl("email", $asc_or_desc, $selectedProvider)?>">
           Email
           <i class="fas fa-sort<?php echo $column == "email" ? "-" . $up_or_down : "" ?>"></i>
         </a>
       </th>
       <th>
-        <a href="subscribers.php?column=date&order=<?php echo $asc_or_desc ?>">
+        <a href="<?php echo generateDataUrl("date", $asc_or_desc, $selectedProvider)?>">
           Date
           <i class="fas fa-sort<?php echo $column == "date" ? "-" . $up_or_down : "" ?>"></i>
        </a>

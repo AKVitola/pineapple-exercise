@@ -16,7 +16,7 @@
     echo json_encode("Subscriber deleted");
   } else {
     echo json_encode("Error: " . $sql . "<br>" . $conn->error);
-}
+  }
 
   $conn->close();
 ?>
