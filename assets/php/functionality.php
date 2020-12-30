@@ -1,10 +1,4 @@
 <?php
-$emailAdress    = $_POST['email'];
-$emailProvider  = substr($emailAdress, strpos($emailAdress, '@') + 1);
-$emailProvider  = explode('.', $emailProvider);
-$emailProvider  = array_reverse($emailProvider);
-$emailProvider  = "$emailProvider[1]";
-
 
 $servername = "localhost";
 $username   = "root";
@@ -16,6 +10,12 @@ $conn = new mysqli($servername, $username, $password, $dbName);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
+
+$emailAdress    = $_POST['email'];
+$emailProvider  = substr($emailAdress, strpos($emailAdress, '@') + 1);
+$emailProvider  = explode('.', $emailProvider);
+$emailProvider  = array_reverse($emailProvider);
+$emailProvider  = "$emailProvider[1]";
 
 $sql = "INSERT INTO subscriptions (email, provider)
 VALUES ('$emailAdress', '$emailProvider')";

@@ -124,19 +124,11 @@ function removeArrowClass() {
 }
 
 
-
-
-
-
-
-const sortEmail = document.getElementById("sort-by-email");
-const sortDate  = document.getElementById("sort-by-date");
+// ============Ajax for pineaple page
 
 $(document).ready(function() {
-  console.log("Esmu dok'a!");
 
   $('form').submit(function(event) {
-    console.log("Esmu form'a!");
     var formData = {
         'email'  : $('input[name=email]').val()
     };
@@ -148,15 +140,13 @@ $(document).ready(function() {
         dataType : 'json',
         encode   : true
     })
-
     .done(function(data) {
-        // log data to the console so we can see
+
         console.log("Kafija");
         console.log(data);
-        // here we will handle errors and validation messages
+        //atgriez'is success lapu
     });
 
       event.preventDefault();
   });
 });
-
