@@ -3,16 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="../img/pineapple.png">
+  <link rel="stylesheet" href="../css/subscribers-style.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
   <script type='text/javascript' src="https://code.jquery.com/jquery-3.5.1.min.js"
   integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
   crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="../css/subscribers-style.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
   <title>Subscribers</title>
 </head>
 
 <body>
-  <h1>Subscribers</h1>
+  <h1>
+    <a href="subscribers.php">Subscribers</a>
+  </h1>
 
   <?php
   $servername = "localhost";
@@ -28,11 +31,16 @@
   $columns    = array('date', 'email');
   $column     = isset($_GET['column']) && in_array($_GET['column'], $columns) ? $_GET['column'] : $columns[0];
   $sort_order = isset($_GET['order']) && strtolower($_GET['order']) == 'asc' ? 'ASC' : 'DESC';
-  $whereSql   = "";
+  $searchVal  = isset($_GET['searchVal']) ? $_GET['searchVal'] : null;
+  $whereSql   = "WHERE TRUE";
   $selectedProvider = isset($_GET['provider']) ? $_GET['provider'] : null;
 
   if($selectedProvider) {
-    $whereSql = 'WHERE provider= "' . $selectedProvider . '"';
+    $whereSql .= ' AND provider= "' .$selectedProvider. '"';
+  }
+
+  if($searchVal) {
+    $whereSql .= " AND email LIKE '%$searchVal%' ";
   }
 
   if ($result = $conn->query('SELECT * FROM subscriptions ' . $whereSql . ' ORDER BY ' . $column . ' ' . $sort_order)) {
@@ -40,11 +48,14 @@
     $asc_or_desc = $sort_order == 'ASC' ? 'desc' : 'asc';
   }
 
-function generateDataUrl($column, $sort_order, $provider) {
+function generateDataUrl($column, $sort_order, $provider, $searchVal) {
   $url = "subscribers.php?column=" . $column . "&order=" . $sort_order;
 
   if($provider) {
     $url = $url . "&provider=" . $provider;
+  }
+  if ($searchVal) {
+    $url = $url . "&searchVal=" . $searchVal;
   }
 
   return $url;
@@ -61,7 +72,7 @@ function generateDataUrl($column, $sort_order, $provider) {
         foreach($providerArray as $provider) {
     ?>
         <button>
-          <a href="<?php echo generateDataUrl($column, $sort_order, $provider); ?>">
+          <a href="<?php echo generateDataUrl($column, $sort_order, $provider, $searchVal); ?>">
               <?php echo $provider; ?>
           </a>
         </button>
@@ -71,16 +82,26 @@ function generateDataUrl($column, $sort_order, $provider) {
     ?>
   </div>
 
+  <form>
+    <label for="search">Search by email </label>
+    <input id="search" value="<?php echo $searchVal;?>">
+    <button type="submit" onclick="searchEmail(event, '<?php echo $column;?>','<?php echo $sort_order;?>' , '<?php echo $selectedProvider;?>' , '<?php echo $searchVal;?>')">
+      <a href="">
+      Search
+      </a>
+    </button>
+  </form>
+
   <table>
     <tr>
       <th>
-        <a href="<?php echo generateDataUrl("email", $asc_or_desc, $selectedProvider)?>">
+        <a href="<?php echo generateDataUrl("email", $asc_or_desc, $selectedProvider, $searchVal)?>">
           Email
           <i class="fas fa-sort<?php echo $column == "email" ? "-" . $up_or_down : "" ?>"></i>
         </a>
       </th>
       <th>
-        <a href="<?php echo generateDataUrl("date", $asc_or_desc, $selectedProvider)?>">
+        <a href="<?php echo generateDataUrl("date", $asc_or_desc, $selectedProvider, $searchVal)?>">
           Date
           <i class="fas fa-sort<?php echo $column == "date" ? "-" . $up_or_down : "" ?>"></i>
        </a>
@@ -94,11 +115,9 @@ function generateDataUrl($column, $sort_order, $provider) {
       echo "<tr>";
       echo "<td>" . $row['email'] . "</td>";
       echo "<td>" . $row['date'] . "</td>";
-      echo "<td><a href='#' id='". $row['id'] . "' onclick='deleteSubscriber(id)'>Delete</a></td>";
+      echo "<td class='delete'><a href='#' id='". $row['id'] . "' onclick='deleteSubscriber(id)'>Delete</a></td>";
       echo "</tr>";
     }
-  } else {
-      echo "0 results";
   }
   echo "</table>";
   $conn->close();
