@@ -31,31 +31,75 @@
   $columns    = array('date', 'email');
   $column     = isset($_GET['column']) && in_array($_GET['column'], $columns) ? $_GET['column'] : $columns[0];
   $sort_order = isset($_GET['order']) && strtolower($_GET['order']) == 'asc' ? 'ASC' : 'DESC';
-  $searchVal  = isset($_GET['searchVal']) ? $_GET['searchVal'] : null;
+  $email  = isset($_GET['email']) ? $_GET['email'] : null;
   $whereSql   = "WHERE TRUE";
   $selectedProvider = isset($_GET['provider']) ? $_GET['provider'] : null;
+
+  $rowsperpage = 10;
+  $totalpages  = calculateTotalPages($selectedProvider, $email, $conn, $rowsperpage);
+  $currentpage = calculateCurrentPage($totalpages);
+  $offset= calculateOffset($currentpage, $rowsperpage);
+
+  function calculateOffset($currentpage, $rowsperpage) {
+    return ($currentpage - 1) * $rowsperpage;
+  }
+
+  function calculateTotalPages($selectedProvider, $email, $conn, $rowsperpage) {
+    $whereSql   = "WHERE TRUE";
+
+    if($selectedProvider) {
+      $whereSql .= ' AND provider= "' .$selectedProvider. '"';
+    }
+
+    if($email) {
+      $whereSql .= " AND email LIKE '%$email%' ";
+    }
+
+    $result = $conn->query('SELECT COUNT(*) FROM subscriptions ' . $whereSql)->fetch_all();
+    $totalRows = (int)$result[0][0];
+
+    return ceil($totalRows / $rowsperpage);
+  }
+
+  function calculateCurrentPage($totalpages) {
+    if (isset($_GET['currentpage']) && is_numeric($_GET['currentpage'])) {
+      $currentpage = (int) $_GET['currentpage'];
+    } else {
+      $currentpage = 1;
+    }
+
+    if ($currentpage > $totalpages) {
+      $currentpage = $totalpages;
+    }
+
+    if ($currentpage < 1) {
+      $currentpage = 1;
+    }
+
+    return $currentpage;
+  }
 
   if($selectedProvider) {
     $whereSql .= ' AND provider= "' .$selectedProvider. '"';
   }
 
-  if($searchVal) {
-    $whereSql .= " AND email LIKE '%$searchVal%' ";
+  if($email) {
+    $whereSql .= " AND email LIKE '%$email%' ";
   }
 
-  if ($result = $conn->query('SELECT * FROM subscriptions ' . $whereSql . ' ORDER BY ' . $column . ' ' . $sort_order)) {
-    $up_or_down = str_replace(array('ASC','DESC'), array('up','down'), $sort_order);
+  if ($result = $conn->query('SELECT * FROM subscriptions ' . $whereSql . ' ORDER BY ' . $column . ' ' . $sort_order . ' LIMIT ' . $offset .', '. $rowsperpage)) {
+    $up_or_down  = str_replace(array('ASC','DESC'), array('up','down'), $sort_order);
     $asc_or_desc = $sort_order == 'ASC' ? 'desc' : 'asc';
   }
 
-function generateDataUrl($column, $sort_order, $provider, $searchVal) {
+function generateDataUrl($column, $sort_order, $provider, $email) {
   $url = "subscribers.php?column=" . $column . "&order=" . $sort_order;
 
   if($provider) {
     $url = $url . "&provider=" . $provider;
   }
-  if ($searchVal) {
-    $url = $url . "&searchVal=" . $searchVal;
+  if ($email) {
+    $url = $url . "&searchVal=" . $email;
   }
 
   return $url;
@@ -72,7 +116,7 @@ function generateDataUrl($column, $sort_order, $provider, $searchVal) {
         foreach($providerArray as $provider) {
     ?>
         <button>
-          <a href="<?php echo generateDataUrl($column, $sort_order, $provider, $searchVal); ?>">
+          <a href="<?php echo generateDataUrl($column, $sort_order, $provider, $email); ?>">
               <?php echo $provider; ?>
           </a>
         </button>
@@ -84,8 +128,8 @@ function generateDataUrl($column, $sort_order, $provider, $searchVal) {
 
   <form>
     <label for="search">Search by email </label>
-    <input id="search" value="<?php echo $searchVal;?>">
-    <button type="submit" onclick="searchEmail(event, '<?php echo $column;?>','<?php echo $sort_order;?>' , '<?php echo $selectedProvider;?>' , '<?php echo $searchVal;?>')">
+    <input id="search" value="<?php echo $email;?>">
+    <button type="submit" onclick="searchEmail(event, '<?php echo $column;?>','<?php echo $sort_order;?>' , '<?php echo $selectedProvider;?>' , '<?php echo $email;?>')">
       <a href="">
       Search
       </a>
@@ -95,13 +139,13 @@ function generateDataUrl($column, $sort_order, $provider, $searchVal) {
   <table>
     <tr>
       <th>
-        <a href="<?php echo generateDataUrl("email", $asc_or_desc, $selectedProvider, $searchVal)?>">
+        <a href="<?php echo generateDataUrl("email", $asc_or_desc, $selectedProvider, $email)?>">
           Email
           <i class="fas fa-sort<?php echo $column == "email" ? "-" . $up_or_down : "" ?>"></i>
         </a>
       </th>
       <th>
-        <a href="<?php echo generateDataUrl("date", $asc_or_desc, $selectedProvider, $searchVal)?>">
+        <a href="<?php echo generateDataUrl("date", $asc_or_desc, $selectedProvider, $email)?>">
           Date
           <i class="fas fa-sort<?php echo $column == "date" ? "-" . $up_or_down : "" ?>"></i>
        </a>
@@ -121,7 +165,35 @@ function generateDataUrl($column, $sort_order, $provider, $searchVal) {
   }
   echo "</table>";
   $conn->close();
-?>
+  ?>
+
+  <section class="pagination">
+  <?php
+  $range = 3;
+
+  if ($currentpage > 1) {
+   echo "<a href='{$_SERVER['PHP_SELF']}?currentpage=1'><button>|<</button></a>";
+   $prevpage = $currentpage - 1;
+   echo "<a href='{$_SERVER['PHP_SELF']}?currentpage=$prevpage'><button><</button></a>";
+  }
+
+  for ($x = ($currentpage - $range); $x < (($currentpage + $range) + 1); $x++) {
+    if (($x > 0) && ($x <= $totalpages)) {
+      if ($x == $currentpage) {
+        echo "<a href='{$_SERVER['PHP_SELF']}?currentpage=$x'><button class='active-page'>$x</button></a>";
+      } else {
+        echo "<a href='{$_SERVER['PHP_SELF']}?currentpage=$x'><button>$x</button></a>";
+      }
+    }
+  }
+
+  if ($currentpage != $totalpages) {
+   $nextpage = $currentpage + 1;
+   echo "<a href='{$_SERVER['PHP_SELF']}?currentpage=$nextpage'><button>></button></a>";
+   echo "<a href='{$_SERVER['PHP_SELF']}?currentpage=$totalpages'><button>>|</button></a>";
+  }
+  ?>
+  </section>
 
 <script src="../js/subscribers.js"></script>
 </body>

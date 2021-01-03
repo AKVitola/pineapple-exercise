@@ -31,10 +31,11 @@ div {
   display: flex;
   justify-content: center;
   margin: 20px auto;
+  flex-wrap: wrap;
 }
 
 button {
-  margin: 0 20px;
+  margin: 5px 20px;
   padding: 5px;
   cursor: pointer;
 }
@@ -43,11 +44,13 @@ button {
   text-decoration: underline;
 }
 
-form {
+form,
+.pagination {
   width: 90%;
   max-width: 800px;
   margin: 25px auto;
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
 }
@@ -57,5 +60,19 @@ form > button {
 }
 
 input {
-  margin-left: 10px;
+  margin: 5px 0 5px 10px;
+}
+
+.pagination {
+  justify-content: center;
+}
+
+.pagination a > button {
+  margin: 5px 5px;
+}
+
+button.active-page {
+  border-width: 2px;
+  border-radius: 3px;
+  box-shadow: inset 0 0 2px;
 }

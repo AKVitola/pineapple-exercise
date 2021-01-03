@@ -25,21 +25,21 @@ function deleteSubscriber(id) {
 
 // ========= Url for search
 
-function searchEmail(event, column, sort_order, selectedProvider, searchVal) {
+function searchEmail(event, column, sort_order, selectedProvider, email) {
 
   event.preventDefault();
 
   let searchInput = document.getElementById("search").value;
   let url = window.location.origin + "/assets/subscribers/subscribers.php" + "?column=" + column + "&order=" +  sort_order;
 
-  if (searchVal !== searchInput) {
-    searchVal = searchInput;
+  if (email !== searchInput) {
+    email = searchInput;
   }
   if(selectedProvider) {
     url += "&provider=" + selectedProvider;
   }
-  if (searchVal) {
-    url += "&searchVal=" + searchVal;
+  if (email) {
+    url += "&email=" + email;
   }
 
   window.location.assign(url);
