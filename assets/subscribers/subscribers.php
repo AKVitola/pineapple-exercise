@@ -62,22 +62,22 @@
   }
 
   function calculateCurrentPage($totalpages) {
-    if (isset($_GET['currentpage']) && is_numeric($_GET['currentpage'])) {
-      $currentpage = (int) $_GET['currentpage'];
+    if (isset($_GET['page']) && is_numeric($_GET['page'])) {
+      $currentpage = (int) $_GET['page'];
     } else {
       $currentpage = 1;
     }
-
     if ($currentpage > $totalpages) {
       $currentpage = $totalpages;
     }
-
     if ($currentpage < 1) {
       $currentpage = 1;
     }
 
     return $currentpage;
   }
+
+  // Add string to WHERE if provider is selected or searched by email
 
   if($selectedProvider) {
     $whereSql .= ' AND provider= "' .$selectedProvider. '"';
@@ -87,25 +87,32 @@
     $whereSql .= " AND email LIKE '%$email%' ";
   }
 
+  // Main query to db
+
   if ($result = $conn->query('SELECT * FROM subscriptions ' . $whereSql . ' ORDER BY ' . $column . ' ' . $sort_order . ' LIMIT ' . $offset .', '. $rowsperpage)) {
     $up_or_down  = str_replace(array('ASC','DESC'), array('up','down'), $sort_order);
     $asc_or_desc = $sort_order == 'ASC' ? 'desc' : 'asc';
   }
 
-function generateDataUrl($column, $sort_order, $provider, $email) {
+function generateDataUrl($column, $sort_order, $provider, $email, $page = null) {
   $url = "subscribers.php?column=" . $column . "&order=" . $sort_order;
 
   if($provider) {
-    $url = $url . "&provider=" . $provider;
+    $url .= "&provider=" . $provider;
   }
   if ($email) {
-    $url = $url . "&searchVal=" . $email;
+    $url .= "&email=" . $email;
+  }
+  if ($page) {
+    $url .= "&page=" . $page;
   }
 
   return $url;
 }
 
-  $providerQuery   = 'SELECT DISTINCT provider FROM subscriptions';
+  // Filter email by provider
+
+  $providerQuery   = 'SELECT DISTINCT provider FROM subscriptions ' . $whereSql;
   $providerResults = $conn->query($providerQuery);
   $providerResults = $providerResults->fetch_all();
 ?>
@@ -126,6 +133,8 @@ function generateDataUrl($column, $sort_order, $provider, $email) {
     ?>
   </div>
 
+  <!-- Search -->
+
   <form>
     <label for="search">Search by email </label>
     <input id="search" value="<?php echo $email;?>">
@@ -135,6 +144,8 @@ function generateDataUrl($column, $sort_order, $provider, $email) {
       </a>
     </button>
   </form>
+
+  <!-- Sorting by email and date -->
 
   <table>
     <tr>
@@ -153,6 +164,8 @@ function generateDataUrl($column, $sort_order, $provider, $email) {
       <th></th>
     </tr>
 
+<!-- Table for all the db data -->
+
 <?php
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
@@ -167,30 +180,32 @@ function generateDataUrl($column, $sort_order, $provider, $email) {
   $conn->close();
   ?>
 
+<!-- Pagination links -->
+
   <section class="pagination">
   <?php
   $range = 3;
 
   if ($currentpage > 1) {
-   echo "<a href='{$_SERVER['PHP_SELF']}?currentpage=1'><button>|<</button></a>";
+   echo "<a href='" . generateDataUrl($column, $sort_order, $selectedProvider, $email, 1) . "'><button>|<</button></a>";
    $prevpage = $currentpage - 1;
-   echo "<a href='{$_SERVER['PHP_SELF']}?currentpage=$prevpage'><button><</button></a>";
+   echo "<a href='" . generateDataUrl($column, $sort_order, $selectedProvider, $email, $prevpage) . "'><button><</button></a>";
   }
 
   for ($x = ($currentpage - $range); $x < (($currentpage + $range) + 1); $x++) {
     if (($x > 0) && ($x <= $totalpages)) {
       if ($x == $currentpage) {
-        echo "<a href='{$_SERVER['PHP_SELF']}?currentpage=$x'><button class='active-page'>$x</button></a>";
+        echo "<a href='" .generateDataUrl($column, $sort_order, $selectedProvider, $email, $x). "'><button class='active-page'>$x</button></a>";
       } else {
-        echo "<a href='{$_SERVER['PHP_SELF']}?currentpage=$x'><button>$x</button></a>";
+        echo "<a href='" .generateDataUrl($column, $sort_order, $selectedProvider, $email, $x). "'><button>$x</button></a>";
       }
     }
   }
 
   if ($currentpage != $totalpages) {
    $nextpage = $currentpage + 1;
-   echo "<a href='{$_SERVER['PHP_SELF']}?currentpage=$nextpage'><button>></button></a>";
-   echo "<a href='{$_SERVER['PHP_SELF']}?currentpage=$totalpages'><button>>|</button></a>";
+   echo "<a href='" .generateDataUrl($column, $sort_order, $selectedProvider, $email, $nextpage). "'><button>></button></a>";
+   echo "<a href='" .generateDataUrl($column, $sort_order, $selectedProvider, $email, $totalpages). "'><button>>|</button></a>";
   }
   ?>
   </section>

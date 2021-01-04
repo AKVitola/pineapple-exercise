@@ -1,9 +1,15 @@
 const errorContainer = document.getElementById('js-error-container');
 let errorMessage     = [];
 const arrowIcon      = document.getElementById("js-arrow-icon");
+const button         = document.getElementById("button");
 const input          = document.getElementById('js-email-input');
 
+
 window.onload = function() {
+
+  // Cant make button disabled in html because of php validation
+  button.disabled = true;
+
   if(button.style.cursor !== "auto") {
     button.addEventListener("mouseover", function() {
       addArrowClass();
@@ -85,7 +91,9 @@ function deleteError() {
 function displayError() {
   deleteError();
 
-  if (errorMessage.length !== 0) {
+  if (errorMessage.length === 0) {
+    errorContainer.style.display = "none";
+  } else {
     errorContainer.style.display = "block";
   }
 
@@ -95,8 +103,6 @@ function displayError() {
 }
 
 function formatSubmitBtn(email) {
-  const button = document.getElementById("button");
-
   if(errorMessage.length !== 0 || isEmpty(email)) {
     button.disabled = true;
     button.style.cursor = "auto";
@@ -130,7 +136,8 @@ $(document).ready(function() {
 
   $('form').submit(function(event) {
     var formData = {
-        'email'  : $('input[name=email]').val()
+        'email'  : $('input[name=email]').val(),
+        'terms'  : $('input[name=terms]').is(":checked")
     };
 
     $.ajax({

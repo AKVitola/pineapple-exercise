@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +15,6 @@
   <title>Pineapple</title>
 </head>
 <body>
-
   <main class="main">
     <div class="flex-container">
 
@@ -36,16 +38,26 @@
           <section class="subscripion-container mobile">
             <h1 class="heading">Subscribe to newsletter</h1>
             <p class="paragraph">Subscribe to our newsletter and get 10% discount on pineapple glasses.</p>
+
             <form novalidate action="assets/php/functionality.php" method="post" onsubmit="onsubmitValidation()">
               <label for="email"></label>
               <input class="email-input" id="js-email-input" type="email" id="email" name="email" placeholder="Type your email address here…" required oninput="oninputValidation()" >
-              <button id="button" class="form-arrow-btn" type="submit" name="submit" disabled>
+              <button id="button" class="form-arrow-btn" type="submit" name="submit" value="submit">
                 <span class="icon icon-ic_arrow" id="js-arrow-icon"></span>
               </button>
-              <div class="error-container" id="js-error-container"></div>
+              <div class="error-container" id="js-error-container">
+                <p class="error">
+                <?php
+                  if(isset($_SESSION["error"])) {
+                    echo $_SESSION["error"];
+                    unset($_SESSION['error']);
+                  }
+                ?>
+                </p>
+              </div>
               <div class="checkbox-wrap">
                 <label>
-                  <input id="js-checkbox" type="checkbox" name="terms-of-service" value="agree" required onchange="oncheckValidation()"/>
+                  <input id="js-checkbox" type="checkbox" name="terms" value="terms" required onchange="oncheckValidation()"/>
                   <span class="checkbox-text">
                     I agree to <a href="#"> terms of service</a>
                   </span>
