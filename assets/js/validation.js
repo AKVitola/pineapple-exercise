@@ -137,7 +137,8 @@ $(document).ready(function() {
   $('form').submit(function(event) {
     var formData = {
         'email'  : $('input[name=email]').val(),
-        'terms'  : $('input[name=terms]').is(":checked")
+        'terms'  : $('input[name=terms]').is(":checked"),
+        'jsEnabled' : true
     };
 
     $.ajax({
@@ -147,11 +148,8 @@ $(document).ready(function() {
         dataType : 'json',
         encode   : true
     })
-    .done(function(data) {
-
-        console.log("Kafija");
-        console.log(data);
-        //atgriez'is success lapu
+    .done(function() {
+        window.location.replace(window.location.origin + "/success");
     });
 
       event.preventDefault();

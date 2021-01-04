@@ -41,14 +41,27 @@ if(!isset($_SESSION["error"]) && empty($_SESSION["error"])) {
   $sql = "INSERT INTO subscriptions (email, provider)
   VALUES ('$emailAdress', '$emailProvider')";
 
-  if ($conn->query($sql) === TRUE) {
-    echo json_encode("New record created successfully");
-    print_r(".");
-  } else {
-    echo json_encode("Error: " . $sql . "<br>" . $conn->error);
+  if($_POST["jsEnabled"]) {
+
   }
 
+    if ($conn->query($sql) === TRUE) {
+       if($_POST["jsEnabled"]) {
+         echo json_encode("New record created successfully");
+       } else {
+          header('Location: ../../success.php');
+          exit;
+       }
+    } else {
+       if($_POST["jsEnabled"]) {
+         echo json_encode("Error: " . $sql . "<br>" . $conn->error);
+       } else {
+         $_SESSION["error"] = "Couldn't add your email to the subscription list.";
+       }
+    }
+
   $conn->close();
+
 } else {
   header('Location: ../../index.php');
   exit;

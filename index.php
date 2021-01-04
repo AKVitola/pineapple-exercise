@@ -20,19 +20,7 @@ session_start();
 
       <section class="page-content">
 
-        <header class="header">
-          <a class="logo-container" href="#">
-            <img class="company-logo" src="assets/img/logo_pineapple.png" alt="Company logo.">
-            <img class="company-logo-mobile" src="assets/img/pineapple.png" alt="Company logo.">
-          </a>
-          <nav class="nav">
-            <ul class="inner-nav">
-              <li class="nav-item"><a href="#">About</a></li>
-              <li class="nav-item"><a href="#">How it works</a></li>
-              <li class="nav-item"><a href="#">Contact</a></li>
-            </ul>
-          </nav>
-        </header>
+         <?php include "assets/partials/header.html" ?>
 
         <div class="mobile-page-container">
           <section class="subscripion-container mobile">
@@ -66,31 +54,8 @@ session_start();
             </form>
           </section> <!-- /.subscripion-container -->
 
-          <footer class="footer">
-            <section class="social-icon-wrap">
-                <div class="social-icon facebook-wrap">
-                  <a href="#">
-                    <span class="icon-social icon-Facebook"></span>
-                  </a>
-                </div>
-                <div class="social-icon instragram-wrap">
-                  <a href="#">
-                    <span class="icon-social icon-Instagram"></span>
-                  </a>
-                </div>
-                <div class="social-icon twitter-wrap">
-                  <a href="#">
-                    <span class="icon-social icon-Twitter"></span>
-                  </a>
-                </div>
-                <div class="social-icon youtube-wrap">
-                  <a href="#">
-                    <span class="icon-social icon-Youtube"></span>
-                  </a>
-                </div>
-            </section> <!-- /.social-icon-wrap -->
+          <?php include "assets/partials/footer.html" ?>
 
-          </footer>
           </div> <!-- /.mobile-page-container -->
         </section> <!-- /.page-content -->
 

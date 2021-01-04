@@ -122,11 +122,21 @@ form {
 /* ===Subscripion container=== */
 
 .heading,
+.success-cup,
 .paragraph,
 .checkbox-wrap,
 .error-container {
   width: 59%;
   margin: 0 auto;
+}
+
+.success-cup {
+  content: "";
+  height: 70px;
+  margin-top: -35px;
+  margin-bottom: 32px;
+  background: url(../img/ic_success.png);
+  background-repeat: no-repeat;
 }
 
 .subscripion-container {
@@ -145,6 +155,10 @@ form {
 
 .paragraph {
   margin-bottom: 50px;
+}
+
+.paragraph.underline {
+  margin-bottom: 0;
 }
 
 .email-input {
@@ -219,6 +233,7 @@ label > input[type="checkbox"]:checked + *::before {
   background: #4066a5;
 }
 
+.underline::after,
 .checkbox-wrap::after {
   content: " ";
   display: block;
@@ -275,6 +290,7 @@ label > input[type="checkbox"]:checked + *::before {
   }
 
   .heading,
+  .success-cup,
   .paragraph,
   .checkbox-wrap,
   .error-container {
@@ -324,6 +340,7 @@ label > input[type="checkbox"]:checked + *::before {
   }
 
   .heading,
+  .success-cup,
   .paragraph,
   form,
   .checkbox-wrap,
@@ -331,6 +348,10 @@ label > input[type="checkbox"]:checked + *::before {
   .error-container {
     width: unset;
     margin: 0;
+  }
+
+  .success-cup {
+    margin-bottom: 41px;
   }
 
   .checkbox-wrap,
@@ -369,6 +390,11 @@ label > input[type="checkbox"]:checked + *::before {
   .checkbox-wrap,
   .checkbox-text {
     margin: 0;
+  }
+
+  .underline::after {
+    margin-top: 39px;
+    margin-bottom: 20px;
   }
 
   .checkbox-wrap::after {
