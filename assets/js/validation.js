@@ -6,15 +6,13 @@ const input          = document.getElementById('js-email-input');
 
 
 window.onload = function() {
-
-  // Cant make button disabled in html because of php validation
+  // Can't make button disabled in html because of php validation
   button.disabled = true;
 
   if(button.style.cursor !== "auto") {
     button.addEventListener("mouseover", function() {
       addArrowClass();
     })
-
     button.addEventListener("mouseout", function() {
       removeArrowClass();
     })
@@ -30,7 +28,7 @@ function validateRegEx(email) {
   }
 }
 
-function isEmpty(email) {
+function validateEmptyEmail(email) {
   if (email.length == 0) {
      errorMessage.push("Email address is required");
   }
@@ -57,22 +55,24 @@ function oncheckValidation() {
 }
 
 function onsubmitValidation() {
+  let email    = input.value;
   errorMessage = [];
+
   validateCheckbox();
   displayError();
+  formatSubmitBtn(email);
 }
 
 function oninputValidation() {
+  let email    = input.value;
   errorMessage = [];
-
-  let email = input.value;
 
   if (email.length >= 5) {
     validateRegEx(email);
     validateDomain(email);
   }
 
-  isEmpty(email);
+  validateEmptyEmail(email);
   formatSubmitBtn(email);
   displayError();
 }
@@ -103,7 +103,7 @@ function displayError() {
 }
 
 function formatSubmitBtn(email) {
-  if(errorMessage.length !== 0 || isEmpty(email)) {
+  if(errorMessage.length !== 0 || validateEmptyEmail(email)) {
     button.disabled = true;
     button.style.cursor = "auto";
     removeArrowClass();
@@ -130,11 +130,16 @@ function removeArrowClass() {
 }
 
 
-// ============Ajax for pineaple page
+// ============Ajax for pineapple page
 
 $(document).ready(function() {
-
   $('form').submit(function(event) {
+    //Because checkbox validation and ajax happens at the same time.
+    // This prevents the form from being submitted if the checkbox is not checked.
+    if(errorMessage.length > 0) {
+      return;
+    }
+
     var formData = {
         'email'  : $('input[name=email]').val(),
         'terms'  : $('input[name=terms]').is(":checked"),
