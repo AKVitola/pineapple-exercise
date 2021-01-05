@@ -66,14 +66,18 @@ form {
 
   max-width: 480px;
   width: 71%;
-  margin: 100px auto 164px auto;
+  margin: 100px auto 226px auto;
 
   line-height: 26px;
 }
 
+.succes-container .header {
+  margin-bottom: 121px;
+}
+
 .nav {
   flex: 0 1 249px;
-  margin-top: 6px;
+  margin-top: 8px;
 }
 
 .inner-nav {
@@ -133,8 +137,7 @@ form {
 .success-cup {
   content: "";
   height: 70px;
-  margin-top: -35px;
-  margin-bottom: 32px;
+  margin-bottom: 30px;
   background: url(../img/ic_success.png);
   background-repeat: no-repeat;
 }
@@ -150,11 +153,15 @@ form {
   font-size: 32px;
   line-height: 44px;
   color: #131821;
-  margin-bottom: 15px;
+  margin-bottom: 16px;
+}
+
+.succes-container .heading {
+  margin-bottom: 21px;
 }
 
 .paragraph {
-  margin-bottom: 50px;
+  margin-bottom: 49px;
 }
 
 .paragraph.underline {
@@ -167,9 +174,8 @@ form {
   width: 97.5%;
   height: 70px;
 
-  margin-bottom: 53px;
-  margin-left: 15%;
-  padding-left: 40px;
+  margin: 0 0 38px 15%;
+  padding: 2px 0 0 38px;
   border: 1px solid #e3e3e4;
   border-left: 4px solid #4066a5;
 
@@ -191,7 +197,7 @@ form {
 .form-arrow-btn {
   position: relative;
   left: 103%;
-  top: -95px;
+  top: -82px;
   z-index: 1;
   padding: 0;
   border: unset;
@@ -201,13 +207,9 @@ form {
 }
 
 .error-container {
-  margin-bottom: 50px;
-  margin-top: -53px;
+  margin-bottom: 39px;
+  margin-top: -40px;
   color: #e50000b9;
-}
-
-.error {
-  margin: 0;
 }
 
 label > input[type="checkbox"] {
@@ -219,7 +221,7 @@ label > input[type="checkbox"] + *::before {
   width: 26px;
   height: 26px;
   display: inline-block;
-  margin-right: 15px;
+  margin-right: 13px;
   border-radius: 3px;
 
   background: #ffffff;
@@ -238,13 +240,13 @@ label > input[type="checkbox"]:checked + *::before {
   content: " ";
   display: block;
   border-bottom: 1px solid #e3e3e4;
-  margin: 50px 0;
+  margin: 49px 0;
 }
 
 .checkbox-text {
   display: flex;
   align-self: center;
-  margin-bottom: 50px;
+  margin-bottom: 49px;
   cursor: pointer;
 }
 
@@ -329,13 +331,17 @@ label > input[type="checkbox"]:checked + *::before {
     display: block;
   }
 
+  .nav {
+    flex: 0 1 207px;
+  }
+
   /* ===Subscripion container=== */
 
   .mobile-page-container {
     width: 89%;
     height: auto;
     margin: 188px auto 0 auto;
-    padding: 30px 20px;
+    padding: 30px 19px;
     background: linear-gradient(180deg, #ffffff 0%, #f2f5fa 100%);
   }
 
@@ -351,7 +357,7 @@ label > input[type="checkbox"]:checked + *::before {
   }
 
   .success-cup {
-    margin-bottom: 41px;
+    margin-bottom: 39px;
   }
 
   .checkbox-wrap,
@@ -359,6 +365,7 @@ label > input[type="checkbox"]:checked + *::before {
     width: 100%;
   }
 
+  .succes-container .heading,
   .heading {
     margin-bottom: 10px;
     font-size: 24px;
@@ -372,9 +379,14 @@ label > input[type="checkbox"]:checked + *::before {
     line-height: 26px;
   }
 
+  .error-container {
+    margin-top: -16px;
+    margin-bottom: 16px;
+  }
+
   .email-input {
     height: 60px;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
     padding-left: 15px;
   }
 
@@ -383,8 +395,8 @@ label > input[type="checkbox"]:checked + *::before {
   }
 
   .form-arrow-btn {
-    top: -44px;
-    left: 88%;
+    top: -43px;
+    left: 86.5%;
   }
 
   .checkbox-wrap,
@@ -398,10 +410,15 @@ label > input[type="checkbox"]:checked + *::before {
   }
 
   .checkbox-wrap::after {
-    margin: 20px 0;
+    margin: 18px 0 21px 0;
   }
 
   /* ===Footer=== */
+
+  .social-icon-wrap {
+    margin-left: -16px;
+    margin-bottom: -1px;
+  }
 
   .instragram-wrap,
   .twitter-wrap,

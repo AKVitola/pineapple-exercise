@@ -12,16 +12,13 @@
 }
 
 .icon-social {
-  /* use !important to prevent issues with browser extensions that change fonts */
   font-family: "social-icon-font" !important;
-  /* speak: never; */
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
   text-transform: none;
   line-height: 1;
 
-  /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
@@ -113,16 +110,13 @@
 }
 
 .icon {
-  /* use !important to prevent issues with browser extensions that change fonts */
   font-family: "arrow-icon-font" !important;
-  /* speak: never; */
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
   text-transform: none;
   line-height: 1;
 
-  /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
@@ -138,4 +132,10 @@
 .active-arrow {
   color: #4066a5;
   opacity: unset;
+}
+
+@media only screen and (max-width: 767px) {
+  .icon-social {
+    font-size: 43px;
+  }
 }
