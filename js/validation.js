@@ -148,7 +148,7 @@ $(document).ready(function() {
 
     $.ajax({
         type     : 'POST',
-        url      :'assets/php/functionality.php',
+        url      :'php/functionality.php',
         data     : formData,
         dataType : 'json',
         encode   : true

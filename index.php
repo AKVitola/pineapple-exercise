@@ -20,14 +20,14 @@ session_start();
 
       <section class="page-content">
 
-         <?php include "assets/partials/header.html" ?>
+         <?php include "partials/header.html" ?>
 
         <div class="mobile-page-container">
           <section class="subscripion-container mobile">
             <h1 class="heading">Subscribe to newsletter</h1>
             <p class="paragraph">Subscribe to our newsletter and get 10% discount on pineapple glasses.</p>
 
-            <form novalidate action="assets/php/functionality.php" method="post" onsubmit="onsubmitValidation()">
+            <form novalidate action="php/functionality.php" method="post" onsubmit="onsubmitValidation()">
               <label for="email"></label>
               <input class="email-input" id="js-email-input" type="email" id="email" name="email" placeholder="Type your email address here…" required oninput="oninputValidation()" >
               <button id="button" class="form-arrow-btn" type="submit" name="submit" value="submit">
@@ -54,7 +54,7 @@ session_start();
             </form>
           </section> <!-- /.subscripion-container -->
 
-          <?php include "assets/partials/footer.html" ?>
+          <?php include "partials/footer.html" ?>
 
           </div> <!-- /.mobile-page-container -->
         </section> <!-- /.page-content -->
@@ -65,5 +65,5 @@ session_start();
   </main>
 </body>
 
-<script src="assets/js/validation.js"></script>
+<script src="js/validation.js"></script>
 </html>

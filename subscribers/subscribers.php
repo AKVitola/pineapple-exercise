@@ -210,6 +210,6 @@ function generateDataUrl($column, $sort_order, $provider, $email, $page = null) 
   ?>
   </section>
 
-<script src="../js/subscribers.js"></script>
+<script src="js/subscribers.js"></script>
 </body>
 </html>

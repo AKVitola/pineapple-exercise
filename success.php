@@ -14,7 +14,7 @@
       <div class="flex-container">
         <section class="page-content">
 
-          <?php include "assets/partials/header.html" ?>
+          <?php include "partials/header.html" ?>
 
           <div class="mobile-page-container">
             <div class="success-cup"></div>
@@ -23,7 +23,7 @@
               <p class="paragraph underline">You have successfully subscribed to our email listing. Check your email for the discount code.</p>
             </section> <!-- /.subscripion-container -->
 
-            <?php include "assets/partials/footer.html" ?>
+            <?php include "partials/footer.html" ?>
 
             </div> <!-- /.mobile-page-container -->
           </section> <!-- /.page-content -->
