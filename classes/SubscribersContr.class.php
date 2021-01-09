@@ -1,13 +1,9 @@
 <?php
-
 class SubscribersContr extends Subscribers
 {
-
   public function validateAndCreate()
   {
-
     session_start();
-
     $emailAdress = $_POST["email"];
 
     if (empty($emailAdress)) {
@@ -29,9 +25,8 @@ class SubscribersContr extends Subscribers
     }
 
     if (!isset($_SESSION["error"]) && empty($_SESSION["error"])) {
-
-      $emailProvider  = substr($emailAdress, strpos($emailAdress, '@') + 1);
-      $emailProvider  = explode('.', $emailProvider);
+      $emailProvider  = substr($emailAdress, strpos($emailAdress, "@") + 1);
+      $emailProvider  = explode(".", $emailProvider);
       array_pop($emailProvider);
       $emailProvider = implode(".", $emailProvider);
 
@@ -39,7 +34,7 @@ class SubscribersContr extends Subscribers
         if ($_POST["jsEnabled"]) {
           echo json_encode("New record created successfully");
         } else {
-          header('Location: success.php');
+          header("Location: success.php");
           exit;
         }
       } else {
@@ -50,7 +45,7 @@ class SubscribersContr extends Subscribers
         }
       }
     } else {
-      header('Location: index.php');
+      header("Location: index.php");
       $_SESSION["email"] = $emailAdress;
       exit;
     }
@@ -58,7 +53,7 @@ class SubscribersContr extends Subscribers
 
   public function deleteSubscriber()
   {
-    $subscriberId = $_POST['subscriberId'];
+    $subscriberId = $_POST["subscriberId"];
 
     if ($this->delete($subscriberId) === TRUE) {
       echo json_encode("Subscriber deleted");
@@ -75,9 +70,11 @@ class SubscribersContr extends Subscribers
   private function endsWith($haystack, $needle)
   {
     $length = strlen($needle);
+
     if (!$length) {
       return true;
     }
+
     return substr($haystack, -$length) === $needle;
   }
 
@@ -94,11 +91,11 @@ class SubscribersContr extends Subscribers
 
   public function subscribersPage()
   {
-    $columns   = array('date', 'email');
-    $column    = isset($_GET['column']) && in_array($_GET['column'], $columns) ? $_GET['column'] : $columns[0];
-    $sortOrder = isset($_GET['order']) && strtolower($_GET['order']) == 'asc' ? 'ASC' : 'DESC';
-    $email     = isset($_GET['email']) ? $_GET['email'] : null;
-    $selectedProvider = isset($_GET['provider']) ? $_GET['provider'] : null;
+    $columns   = array("date", "email");
+    $column    = isset($_GET["column"]) && in_array($_GET["column"], $columns) ? $_GET["column"] : $columns[0];
+    $sortOrder = isset($_GET["order"]) && strtolower($_GET["order"]) == "asc" ? "ASC" : "DESC";
+    $email     = isset($_GET["email"]) ? $_GET["email"] : null;
+    $selectedProvider = isset($_GET["provider"]) ? $_GET["provider"] : null;
 
     $totalpages  = $this->calculateTotalPages($selectedProvider, $email);
     $providers   = $this->getDistinctProviders($selectedProvider, $email);
@@ -111,8 +108,8 @@ class SubscribersContr extends Subscribers
 
   public function calculateCurrentPage($totalpages)
   {
-    if (isset($_GET['page']) && is_numeric($_GET['page'])) {
-      $currentpage = (int) $_GET['page'];
+    if (isset($_GET["page"]) && is_numeric($_GET["page"])) {
+      $currentpage = (int) $_GET["page"];
     } else {
       $currentpage = 1;
     }

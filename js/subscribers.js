@@ -1,26 +1,24 @@
-// ============Ajax for subscribers id
-
 function deleteSubscriber(id) {
 
-  let data = {
-    'subscriberId' : id,
-    'submit' : "delete"
+  const data = {
+    "subscriberId" : id,
+    "submit" : "delete"
   };
 
   $.ajax({
-    type     : 'POST',
-    url      : '../functionality.php',
+    type     : "POST",
+    url      : "../functionality.php",
     data     : data,
-    dataType : 'json',
+    dataType : "json",
     encode   : true
   })
+
   .done(function() {
       location.reload();
   });
 }
 
 // ========= Url for search
-
 function searchEmail(event, column, sortOrder, selectedProvider, email) {
 
   event.preventDefault();
@@ -31,9 +29,11 @@ function searchEmail(event, column, sortOrder, selectedProvider, email) {
   if (email !== searchInput) {
     email = searchInput;
   }
+
   if(selectedProvider) {
     url += "&provider=" + selectedProvider;
   }
+
   if (email) {
     url += "&email=" + email;
   }

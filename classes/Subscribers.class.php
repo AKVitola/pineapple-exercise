@@ -1,5 +1,4 @@
 <?php
-
 class Subscribers extends Dbh
 {
   private $conn;
@@ -22,13 +21,13 @@ class Subscribers extends Dbh
   {
     $whereSql = $this->generateWhereSql($selectedProvider, $email);
 
-    return $this->conn->query('SELECT * FROM subscriptions ' . $whereSql . ' ORDER BY ' . $column . ' ' . $sortOrder . ' LIMIT ' . $offset . ', ' . self::$rowsPerPage);
+    return $this->conn->query("SELECT * FROM subscriptions " . $whereSql . " ORDER BY " . $column . " " . $sortOrder . " LIMIT " . $offset . ", " . self::$rowsPerPage);
   }
 
   protected function getDistinctProviders($selectedProvider, $email)
   {
     $whereSql      = $this->generateWhereSql($selectedProvider, $email);
-    $providerQuery = 'SELECT DISTINCT provider FROM subscriptions ' . $whereSql;
+    $providerQuery = "SELECT DISTINCT provider FROM subscriptions " . $whereSql;
     $providers     = $this->conn->query($providerQuery);
     $providers     = $providers->fetch_all();
 
@@ -47,7 +46,7 @@ class Subscribers extends Dbh
     $whereSql = "WHERE TRUE";
 
     if ($selectedProvider) {
-      $whereSql .= ' AND provider= "' . $selectedProvider . '"';
+      $whereSql .= " AND provider= '" . $selectedProvider . "'";
     }
 
     if ($email) {
@@ -59,28 +58,27 @@ class Subscribers extends Dbh
 
   protected function ascOrDesc($sortOrder)
   {
-    return $sortOrder == 'ASC' ? 'desc' : 'asc';
+    return $sortOrder == "ASC" ? "desc" : "asc";
   }
 
   protected function upOrDown($sortOrder)
   {
-    return str_replace(array('ASC', 'DESC'), array('up', 'down'), $sortOrder);
+    return str_replace(array("ASC", "DESC"), array("up", "down"), $sortOrder);
   }
 
   protected function calculateTotalPages($selectedProvider, $email)
   {
-
     $whereSql = $this->generateWhereSql($selectedProvider, $email);
 
     if ($selectedProvider) {
-      $whereSql .= ' AND provider= "' . $selectedProvider . '"';
+      $whereSql .= " AND provider= '" . $selectedProvider . "'";
     }
 
     if ($email) {
       $whereSql .= " AND email LIKE '%$email%' ";
     }
 
-    $result = $this->conn->query('SELECT COUNT(*) FROM subscriptions ' . $whereSql)->fetch_all();
+    $result = $this->conn->query("SELECT COUNT(*) FROM subscriptions " . $whereSql)->fetch_all();
     $totalRows = (int)$result[0][0];
 
     return ceil($totalRows / self::$rowsPerPage);

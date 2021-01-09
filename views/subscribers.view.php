@@ -17,7 +17,6 @@
   </h1>
 
   <!-- Provider buttons -->
-
   <div>
     <?php
     foreach ($providers as $providerArray) {
@@ -35,7 +34,6 @@
   </div>
 
   <!-- Search -->
-
   <form>
     <label for="search">Search by email </label>
     <input id="search" value="<?php echo $email; ?>">
@@ -47,7 +45,6 @@
   </form>
 
   <!-- Sorting by email and date -->
-
   <table>
     <tr>
       <th>
@@ -65,8 +62,7 @@
       <th></th>
     </tr>
 
-    <!-- Displays all DB data -->
-
+    <!-- Displays all db data -->
     <?php
     if ($result->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
@@ -83,7 +79,6 @@
   </table>
 
   <!-- Pagination -->
-
   <section class="pagination">
     <?php
     $range = 3;

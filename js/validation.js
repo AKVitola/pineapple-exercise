@@ -1,12 +1,11 @@
-const errorContainer = document.getElementById('js-error-container');
+const errorContainer = document.getElementById("js-error-container");
 let errorMessage     = [];
 const arrowIcon      = document.getElementById("js-arrow-icon");
 const button         = document.getElementById("button");
-const input          = document.getElementById('js-email-input');
+const input          = document.getElementById("js-email-input");
 
 
 window.onload = function() {
-  // Can't make button disabled in html because of php validation
   button.disabled = true;
 
   if(button.style.cursor !== "auto") {
@@ -51,7 +50,7 @@ function validateCheckbox() {
 }
 
 function fullValidation() {
-  let email    = input.value;
+  const email  = input.value;
   errorMessage = [];
 
   validateRegEx(email);
@@ -63,7 +62,7 @@ function fullValidation() {
 }
 
 function oninputValidation() {
-  let email    = input.value;
+  const email  = input.value;
   errorMessage = [];
 
   if (email.length >= 5) {
@@ -77,7 +76,7 @@ function oninputValidation() {
 }
 
 function generateError(error) {
-  let p = document.createElement("p");
+  const p = document.createElement("p");
   errorContainer.appendChild(p);
   p.setAttribute("class", "error");
   p.innerHTML = `${error}`;
@@ -128,32 +127,31 @@ function removeArrowClass() {
   arrowIcon.classList.remove("active-arrow");
 }
 
-
 // ============Ajax for pineapple page
 
 $(document).ready(function() {
-  $('form').submit(function(event) {
-
+  $("form").submit(function(event) {
     event.preventDefault();
 
     if(errorMessage.length > 0) {
       return;
     }
 
-    var formData = {
-        'email'  : $('input[name=email]').val(),
-        'terms'  : $('input[name=terms]').is(":checked"),
-        'submit' : $('button[name=submit]').val(),
-        'jsEnabled' : true
+    const formData = {
+      "email"  : $("input[name=email]").val(),
+      "terms"  : $("input[name=terms]").is(":checked"),
+      "submit" : $("button[name=submit]").val(),
+      "jsEnabled" : true
     };
 
     $.ajax({
-        type     : 'POST',
-        url      : '../functionality.php',
-        data     : formData,
-        dataType : 'json',
-        encode   : true
+      type     : "POST",
+      url      : "../functionality.php",
+      data     : formData,
+      dataType : "json",
+      encode   : true
     })
+
     .done(function() {
         window.location.replace(window.location.origin + "/success");
     });
