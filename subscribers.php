@@ -2,4 +2,4 @@
 include "includes/autoload.inc.php";
 
 $controller = new SubscribersContr();
-$controller->indexPage();
+$controller->subscribersPage();

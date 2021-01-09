@@ -1,13 +1,15 @@
 // ============Ajax for subscribers id
 
 function deleteSubscriber(id) {
+
   let data = {
-    'subscriberId' : id
+    'subscriberId' : id,
+    'submit' : "delete"
   };
 
   $.ajax({
     type     : 'POST',
-    url      :'subscribers/delete.php',
+    url      : '../functionality.php',
     data     : data,
     dataType : 'json',
     encode   : true
@@ -19,12 +21,12 @@ function deleteSubscriber(id) {
 
 // ========= Url for search
 
-function searchEmail(event, column, sort_order, selectedProvider, email) {
+function searchEmail(event, column, sortOrder, selectedProvider, email) {
 
   event.preventDefault();
 
   let searchInput = document.getElementById("search").value;
-  let url = window.location.origin + "/subscribers/subscribers.php" + "?column=" + column + "&order=" +  sort_order;
+  let url = window.location.origin + "/subscribers.php" + "?column=" + column + "&order=" +  sortOrder;
 
   if (email !== searchInput) {
     email = searchInput;

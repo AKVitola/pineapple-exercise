@@ -50,14 +50,13 @@ function validateCheckbox() {
   }
 }
 
-function oncheckValidation() {
-  onsubmitValidation();
-}
-
-function onsubmitValidation() {
+function fullValidation() {
   let email    = input.value;
   errorMessage = [];
 
+  validateRegEx(email);
+  validateDomain(email);
+  validateEmptyEmail(email);
   validateCheckbox();
   displayError();
   formatSubmitBtn(email);
@@ -134,8 +133,9 @@ function removeArrowClass() {
 
 $(document).ready(function() {
   $('form').submit(function(event) {
-    //Because checkbox validation and ajax happens at the same time.
-    // This prevents the form from being submitted if the checkbox is not checked.
+
+    event.preventDefault();
+
     if(errorMessage.length > 0) {
       return;
     }
@@ -143,12 +143,13 @@ $(document).ready(function() {
     var formData = {
         'email'  : $('input[name=email]').val(),
         'terms'  : $('input[name=terms]').is(":checked"),
+        'submit' : $('button[name=submit]').val(),
         'jsEnabled' : true
     };
 
     $.ajax({
         type     : 'POST',
-        url      :'php/functionality.php',
+        url      : '../functionality.php',
         data     : formData,
         dataType : 'json',
         encode   : true
@@ -156,7 +157,5 @@ $(document).ready(function() {
     .done(function() {
         window.location.replace(window.location.origin + "/success");
     });
-
-      event.preventDefault();
   });
 });
