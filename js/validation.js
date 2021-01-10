@@ -153,7 +153,7 @@ $(document).ready(function() {
     })
 
     .done(function() {
-        window.location.replace(window.location.origin + "/success");
+        window.location.replace(window.location.origin + "/success.php");
     });
   });
 });
