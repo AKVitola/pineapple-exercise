@@ -1,14 +1,11 @@
 <?php
 class Dbh
 {
-  private $host = "localhost";
-  private $user = "root";
-  private $psw  = "";
-  private $dbName = "pineapple";
-
   protected function connect()
   {
-    $conn = new mysqli($this->host, $this->user, $this->psw, $this->dbName);
+    $config = include "config/db_config.php";
+
+    $conn = new mysqli($config["host"], $config["user"], $config["psw"], $config["dbName"]);
 
     if ($conn->connect_error) {
       die("Connection failed: " . $conn->connect_error);
