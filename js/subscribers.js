@@ -7,7 +7,7 @@ function deleteSubscriber(id) {
 
   $.ajax({
     type     : "POST",
-    url      : "../functionality.php",
+    url      : "../functionality",
     data     : data,
     dataType : "json",
     encode   : true
@@ -24,7 +24,7 @@ function searchEmail(event, column, sortOrder, selectedProvider, email) {
   event.preventDefault();
 
   let searchInput = document.getElementById("search").value;
-  let url = window.location.origin + "/subscribers.php" + "?column=" + column + "&order=" +  sortOrder;
+  let url = window.location.origin + "/subscribers" + "?column=" + column + "&order=" +  sortOrder;
 
   if (email !== searchInput) {
     email = searchInput;

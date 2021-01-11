@@ -13,7 +13,7 @@
 
 <body>
   <h1>
-    <a href="subscribers.php">Subscribers</a>
+    <a href="subscribers">Subscribers</a>
   </h1>
 
   <!-- Provider buttons -->

@@ -34,7 +34,7 @@ class SubscribersContr extends Subscribers
         if ($_POST["jsEnabled"]) {
           echo json_encode("New record created successfully");
         } else {
-          header("Location: success.php");
+          header("Location: success");
           exit;
         }
       } else {
@@ -45,7 +45,7 @@ class SubscribersContr extends Subscribers
         }
       }
     } else {
-      header("Location: index.php");
+      header("Location: index");
       $_SESSION["email"] = $emailAdress;
       exit;
     }

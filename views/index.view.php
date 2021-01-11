@@ -24,7 +24,7 @@
             <h1 class="heading">Subscribe to newsletter</h1>
             <p class="paragraph">Subscribe to our newsletter and get 10% discount on pineapple glasses.</p>
 
-            <form novalidate action="../functionality.php" method="post" onsubmit="fullValidation()">
+            <form novalidate action="../functionality" method="post" onsubmit="fullValidation()">
               <label for="email"></label>
               <input class="email-input" id="js-email-input" type="email" id="email" name="email" value="<?php echo isset($_SESSION["email"]) ? $_SESSION["email"] : "" ?>" placeholder="Type your email address here…" required oninput="oninputValidation()">
 

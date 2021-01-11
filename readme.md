@@ -19,7 +19,6 @@ I made this exercise as a test for a junior web developer position.
 - icon fonts
 
 **What would I have done differently:** used MVC pattern from the start for a cleaner code structure.
-**What I would like to fix:** the routs so they don't show the file extension at the end.
 
 ## Setting up project
 
@@ -40,7 +39,7 @@ In order to work with db you have to create a file called db_config.php in the c
 > KEY `provider_index` (`provider`)
 > ) ENGINE=MyISAM AUTO_INCREMENT=282 DEFAULT CHARSET=utf8
 
-### Routes for all project pages:
+### Routes for all project pages
 
 - /index.php
 - /success.php

@@ -146,14 +146,14 @@ $(document).ready(function() {
 
     $.ajax({
       type     : "POST",
-      url      : "../functionality.php",
+      url      : "../functionality",
       data     : formData,
       dataType : "json",
       encode   : true
     })
 
     .done(function() {
-        window.location.replace(window.location.origin + "/success.php");
+        window.location.replace(window.location.origin + "/success");
     });
   });
 });

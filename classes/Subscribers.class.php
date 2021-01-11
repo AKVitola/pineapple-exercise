@@ -78,8 +78,8 @@ class Subscribers extends Dbh
       $whereSql .= " AND email LIKE '%$email%' ";
     }
 
-    $result = $this->conn->query("SELECT COUNT(*) FROM subscriptions " . $whereSql)->fetch_all();
-    $totalRows = (int)$result[0][0];
+    $result = $this->conn->query("SELECT COUNT(*) FROM subscriptions " . $whereSql)->fetch_array();
+    $totalRows = (int)$result[0];
 
     return ceil($totalRows / self::$rowsPerPage);
   }
