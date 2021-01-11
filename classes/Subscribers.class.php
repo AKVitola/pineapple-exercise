@@ -28,8 +28,11 @@ class Subscribers extends Dbh
   {
     $whereSql      = $this->generateWhereSql($selectedProvider, $email);
     $providerQuery = "SELECT DISTINCT provider FROM subscriptions " . $whereSql;
-    $providers     = $this->conn->query($providerQuery);
-    $providers     = $providers->fetch_all();
+    $result        = $this->conn->query($providerQuery);
+
+    while ($provider = $result->fetch_array()) {
+      $providers[] = $provider["provider"];
+    }
 
     return $providers;
   }

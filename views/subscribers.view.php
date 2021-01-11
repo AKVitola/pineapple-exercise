@@ -19,18 +19,14 @@
   <!-- Provider buttons -->
   <div>
     <?php
-    foreach ($providers as $providerArray) {
-      foreach ($providerArray as $provider) {
+    foreach ($providers as $provider) {
     ?>
-        <button>
-          <a href="<?php echo $this->generateDataUrl($column, $sortOrder, $provider, $email); ?>">
-            <?php echo $provider; ?>
-          </a>
-        </button>
-    <?php
-      }
-    }
-    ?>
+      <button>
+        <a href="<?php echo $this->generateDataUrl($column, $sortOrder, $provider, $email); ?>">
+          <?php echo $provider; ?>
+        </a>
+      </button>
+    <?php } ?>
   </div>
 
   <!-- Search -->

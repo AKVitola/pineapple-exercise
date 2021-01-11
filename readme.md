@@ -41,6 +41,6 @@ In order to work with db you have to create a file called db_config.php in the c
 
 ### Routes for all project pages
 
-- /index.php
-- /success.php
-- /subscribers.php _(Contains a table with all subscribers. It is possible to search by email, filter by provider, and sort by date and email.)_
+- /index
+- /success
+- /subscribers _(Contains a table with all subscribers. It is possible to search by email, filter by provider, and sort by date and email.)_
